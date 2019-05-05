@@ -1,0 +1,42 @@
+CREATE TABLE "Artist" (
+	"Artist_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"Artist_name"	TEXT
+);
+
+CREATE TABLE "Genre" (
+	"Genre_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	"Genre_name"	TEXT
+);
+
+CREATE TABLE "Album" (
+	"Album_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	"Artist_id"	INTEGER,
+	"Title"	TEXT
+);
+
+CREATE TABLE "Track" (
+	"Track_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	"Title"	TEXT,
+	"Album_id"	INTEGER,
+	"Genre_id"	INTEGER,
+	"len"	INTEGER,
+	"rating"	INTEGER,
+	"count"	INTEGER
+);
+
+#Use of Join to fetch Album title and artist name.
+select Album.Title, Artist.Artist_name from Album join Artist on Album.Artist_id=Artist.Artist_id;
+
+#Same example
+select Album.Title, Album.Artist_id, Artist.Artist_id, Artist.Artist_name from Album join Artist on Album.Artist_id=Artist.Artist_id;
+
+
+#Use of join to fetch Track title and Genre name.
+select Track.Title, Genre.Genre_name from Track join Genre on Track.Genre_id=Genre.Genre_id;
+
+#Same example
+select Track.Title,Track.Genre_id, Genre.Genre_id, genre.Genre_name from Track join Genre on Track.Genre_id=Genre.Genre_id;
+
+
+#Now the complex one. Fetch Artist name, genre name, Album Title and Track title.
+select Artist.Artist_name, Genre.Genre_name, Album.Title, Track.Title from Artist join Genre Join Album join Track on Artist.Artist_id=Album.Artist_id and Genre.Genre_id=Track.Genre_id and Album.Album_id=Track.Album_id;
